@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { handleController } from './src/controllers/helloController.js';
 import pool from './src/database/db.js'
-import { cadastrarUsuarioController } from './src/controllers/usuarioController.js';
+import { cadastrarUsuarioController, listarUsuariosController } from './src/controllers/usuarioController.js';
 
 // Config do app
 const app = express();
@@ -15,6 +15,8 @@ app.get('/hello-json', (req, res) => {
     const testJson = {"hello": "world"};
     res.json(testJson);
 })
+app.get('/usuarios', listarUsuariosController )
+
 // POST
 app.post('/usuarios', cadastrarUsuarioController);
 

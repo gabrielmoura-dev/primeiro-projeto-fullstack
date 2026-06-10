@@ -1,4 +1,4 @@
-import { cadastrarUsuario } from "../modules/usuarioService.js";
+import { cadastrarUsuario, listarUsuarios } from "../modules/usuarioService.js";
 import { type Request, type Response } from "express";
 
 export async function cadastrarUsuarioController (req: Request, res: Response) {
@@ -6,3 +6,8 @@ export async function cadastrarUsuarioController (req: Request, res: Response) {
     const usuario = await cadastrarUsuario (nome, email, telefone);
     res.json(usuario);
     }
+
+export async function listarUsuariosController (req: Request, res: Response) {
+    const todosUsuarios = await listarUsuarios ()
+    res.json(todosUsuarios);
+}
