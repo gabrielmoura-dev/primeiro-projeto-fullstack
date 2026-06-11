@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { handleController } from './src/controllers/helloController.js';
 import pool from './src/database/db.js'
-import { cadastrarUsuarioController, listarUsuariosController } from './src/controllers/usuarioController.js';
+import { cadastrarUsuariosController, editarUsuariosController, listarUsuariosController } from './src/controllers/usuarioController.js';
 
 // Config do app
 const app = express();
@@ -16,10 +16,10 @@ app.get('/hello-json', (req, res) => {
     res.json(testJson);
 })
 app.get('/usuarios', listarUsuariosController )
-
 // POST
-app.post('/usuarios', cadastrarUsuarioController);
-
+app.post('/usuarios', cadastrarUsuariosController);
+// PUT
+app.put('/usuarios/:id', editarUsuariosController);
 // Conexão com o banco
 pool.query('SELECT 1')
     .then(() => console.log('Banco de dados conectado!'))
