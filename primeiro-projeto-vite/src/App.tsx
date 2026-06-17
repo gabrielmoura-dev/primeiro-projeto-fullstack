@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import FormularioUsuario from './components/FormularioUsuario';
 
 function App() {
   const [pokemons, setPokemons] = useState ([]);
@@ -35,17 +36,16 @@ function App() {
       console.log("A consulta deu certo!")
     }
   }
-
+  
   return (
     <div>
+      <FormularioUsuario />
       <button onClick={buscarPokemons}>Buscar Pokemons</button>
       {pokemons.map((pokemon: any) => (
         <p>{pokemon.name}</p>
       ))}
-    
       <button onClick={consultaHello}>Testar Consulta da API</button>
       <p>{mensagem}</p>
-
       <button onClick={consultaJSON}>Testar Consulta do JSON</button>
       <p>{mensagemJSON?.hello}</p>
     </div>
