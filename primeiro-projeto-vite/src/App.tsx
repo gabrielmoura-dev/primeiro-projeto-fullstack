@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import FormularioUsuario from './components/FormularioUsuario';
+import ListaUsuarios from './components/ListaUsuarios';
 
 function App() {
   const [pokemons, setPokemons] = useState ([]);
@@ -36,10 +37,10 @@ function App() {
       console.log("A consulta deu certo!")
     }
   }
-  
   return (
     <div>
       <FormularioUsuario />
+      <ListaUsuarios />
       <button onClick={buscarPokemons}>Buscar Pokemons</button>
       {pokemons.map((pokemon: any) => (
         <p>{pokemon.name}</p>
@@ -50,4 +51,5 @@ function App() {
       <p>{mensagemJSON?.hello}</p>
     </div>
   );
-}export default App;
+}
+export default App;
