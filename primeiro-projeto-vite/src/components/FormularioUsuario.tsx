@@ -1,18 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-function FormularioUsuario () {
+function FormularioUsuario (props: { usuarioEmEdicao?: any}) {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
+    useEffect(() => {
+        if (props.usuarioEmEdicao) {
+            setNome(props.usuarioEmEdicao.nome);
+            setEmail(props.usuarioEmEdicao.email);
+            setTelefone(props.usuarioEmEdicao.telefone);
+        }
+    }, [props.usuarioEmEdicao]);
     const handleCadastrar = async () => {
         try {
-            await axios.post('http://localhost:3000/usuarios', {
-            nome,
-            email,
-            telefone
-        });
-        console.log('Cadastrado com sucesso!');
+            if (props.usuarioEmEdicao) {
+                await axios.put(`http://localhost:3000/usuarios/${props.usuarioEmEdicao.id}`, {
+                    nome,
+                    email,
+                    telefone
+                });
+            } else {
+                await axios.post(`http://localhost:3000/usuarios`, {
+                    nome,
+                    email,
+                    telefone
+                });      
+            }
+            console.log('Cadastrado com sucesso!');
+            window.location.reload();
         } catch (erro) {
             console.log('Erro ao cadastrar!', erro);
         }

@@ -2,15 +2,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
-function ListaUsuarios () {
+function ListaUsuarios (props: { onEditar: (usuario: any) => void }) {
     const [usuarios, setUsuarios] = useState([]);
-    const handleEditar = (id: number) => {
-        console.log('Editar usuário:', id);
-    };
     useEffect (() => {
         const buscarUsuarios = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/usuarios');
+                const response = await axios.get(`http://localhost:3000/usuarios`);
                 setUsuarios(response.data);
             } catch (erro) {
                 console.log('Erro ao buscar usuarios', erro);
@@ -24,7 +21,7 @@ function ListaUsuarios () {
                 <p>Nome: {usuario.nome}</p>
                 <p>E-mail: {usuario.email}</p>
                 <p>Telefone: {usuario.telefone}</p>
-                <button onClick={() => handleEditar(usuario.id)}>Editar</button>
+                <button onClick={() => props.onEditar(usuario)}>Editar</button>
                 </div>
         ))}
     </div>
