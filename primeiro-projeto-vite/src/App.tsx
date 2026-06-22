@@ -8,9 +8,11 @@ function App() {
   const [mensagem, setMensagem] = useState ('');
   const [mensagemJSON, setMensagemJSON] = useState<{hello: string} | null>(null);
   const [usuarioEmEdicao, setUsuarioEmEdicao] = useState(null);
+  const [chaveAtualizar, setChaveAtualizar] = useState(0);
   const handleEditar = (usuarioParaEditar: any) => {
     setUsuarioEmEdicao(usuarioParaEditar);
   };
+  const atualizarLista = () => setChaveAtualizar(c => c + 1);
   async function buscarPokemons () {
     try {
       const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10')
@@ -43,8 +45,8 @@ function App() {
   }
   return (
     <div>
-      <FormularioUsuario usuarioEmEdicao={usuarioEmEdicao} />
-      <ListaUsuarios onEditar={handleEditar} />
+      <FormularioUsuario usuarioEmEdicao={usuarioEmEdicao} onSucesso={atualizarLista} />
+      <ListaUsuarios key={chaveAtualizar} onEditar={handleEditar} />
       <button onClick={buscarPokemons}>Buscar Pokemons</button>
       {pokemons.map((pokemon: any) => (
         <p>{pokemon.name}</p>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function FormularioUsuario (props: { usuarioEmEdicao?: any}) {
+function FormularioUsuario (props: { usuarioEmEdicao?: any, onSucesso?: any}) {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
@@ -28,7 +28,7 @@ function FormularioUsuario (props: { usuarioEmEdicao?: any}) {
                 });      
             }
             console.log('Cadastrado com sucesso!');
-            window.location.reload();
+            props.onSucesso();
         } catch (erro) {
             console.log('Erro ao cadastrar!', erro);
         }
